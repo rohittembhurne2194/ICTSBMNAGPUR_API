@@ -365,7 +365,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=ycagent&pass=yocc@5095&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
 
                 //HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=BIGVCL&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
-                HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=ICTSBM&dest_mobileno=8830635095&message=" + sms + "%20&response=Y");
+                HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create("https://www.smsjust.com/sms/user/urlsms.php?username=artiyocc&pass=123456&senderid=ICTSBM&dest_mobileno=" + MobilNumber + "&message=" + sms + "%20&response=Y");
                 //Get response from Ozeki NG SMS Gateway Server and read the answer
                 HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
                 System.IO.StreamReader respStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
@@ -373,7 +373,11 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 respStreamReader.Close();
                 myResp.Close();
             }
-            catch { }
+            catch(Exception ex) 
+            {
+
+              
+            }
 
         }
 
@@ -10010,10 +10014,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 dump.userId = obj.userId;
                             }
-                            if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
-                            {
-                                dump.QRCodeImage = obj.QRCodeImage;
-                            }
+                            //if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                            //{
+                            //    dump.QRCodeImage = obj.QRCodeImage;
+                            //}
                             //////////////////////////////////////////////////////////////////
                             obj.date = DateTime.Now;
                             obj.ReferanceId = referanceid;
@@ -10079,10 +10083,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             {
                                 dump.userId = obj.userId;
                             }
-                            if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
-                            {
-                                dump.QRCodeImage = obj.QRCodeImage;
-                            }
+                            //if ((string.IsNullOrEmpty(obj.QRCodeImage)) == false)
+                            //{
+                            //    dump.QRCodeImage = obj.QRCodeImage;
+                            //}
                             //////////////////////////////////////////////////////////////////
                             obj.date = DateTime.Now;
                             obj.ReferanceId = referanceid;
@@ -10441,10 +10445,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 {
                                     dump.userId = item.userId;
                                 }
-                                if (!string.IsNullOrEmpty(item.QRCodeImage))
-                                {
-                                    dump.QRCodeImage = item.QRCodeImage;
-                                }
+                                //if (!string.IsNullOrEmpty(item.QRCodeImage))
+                                //{
+                                //    dump.QRCodeImage = item.QRCodeImage;
+                                //}
                                 db.Qr_Location.Add(FillLocationDetails(item, AppId, true));
 
                                 db.SaveChanges();
@@ -10516,10 +10520,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 {
                                     dump.userId = item.userId;
                                 }
-                                if (!string.IsNullOrEmpty(item.QRCodeImage))
-                                {
-                                    dump.QRCodeImage = item.QRCodeImage;
-                                }
+                                //if (!string.IsNullOrEmpty(item.QRCodeImage))
+                                //{
+                                //    dump.QRCodeImage = item.QRCodeImage;
+                                //}
                                 db.Qr_Location.Add(FillLocationDetails(item, AppId,true));
 
                                 db.SaveChanges();
@@ -11321,15 +11325,16 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 if (model != null)
                 {
                     model.houseOwnerMobile = _Mobile;
-                    db.SaveChanges();
+                  
                     string msg = "Your OTP is " + otp + ". Do not Share it with anyone by any means. This is confidential and to be used by you only. ICTSBM";
 
-                    sendSMS(msg, _Mobile);
+                  
                     if(AppId==3068)
                     {
                         sendSMSNgp(msg, _Mobile);
+                      //  db.SaveChanges();
                     }
-                        obj.Status = "Success";
+                    obj.Status = "Success";
                     obj.OTP = otp;
                     obj.Message = "OTP sent successfully.";
                     obj.MessageMar = "ओटीपी यशस्वीरित्या पाठवले.";
