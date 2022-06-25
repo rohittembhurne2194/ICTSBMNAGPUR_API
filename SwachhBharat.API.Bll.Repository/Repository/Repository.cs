@@ -9969,6 +9969,10 @@ namespace SwachhBharat.API.Bll.Repository.Repository
             {
                 try
                 {
+                    DateTime Dateeee = DateTime.Now;
+                    var atten = db.Qr_Employee_Daily_Attendance.Where(c => c.qrEmpId == obj.userId & c.startDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                    if(atten!=null)
+                    { 
                     if (gcType == 5)
                     {
                         var dump = db.StreetSweepingDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
@@ -10175,8 +10179,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
 
                         }
-
-                        else if (gcType == 2)
+                    else if (gcType == 2)
                         {
                             var gp = db.GarbagePointDetails.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
 
@@ -10241,7 +10244,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                                 result.messageMar = "अवैध कचरा पॉइंट आयडी";
                             }
                     }
-                        else if (gcType == 1)
+                    else if (gcType == 1)
                         {
                             var house = db.HouseMasters.Where(x => x.ReferanceId == referanceid).FirstOrDefault();
                             if (house != null)
@@ -10323,8 +10326,14 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                             }
 
                     }
-
-                  
+                    }
+                    else
+                    {
+                        result.message = "Your duty is currently off, please start again.. ";
+                        result.messageMar = "आपली ड्यूटी सध्या बंद आहे, कृपया पुन्हा सुरू करा..";
+                        result.status = "success";
+                        return result;
+                    }
                     return result;
                 }
                 catch (Exception ex)
