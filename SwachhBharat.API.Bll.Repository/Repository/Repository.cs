@@ -9971,6 +9971,7 @@ namespace SwachhBharat.API.Bll.Repository.Repository
                 {
                     DateTime Dateeee = DateTime.Now;
                     var atten = db.Qr_Employee_Daily_Attendance.Where(c => c.qrEmpId == obj.userId & c.startDate == EntityFunctions.TruncateTime(Dateeee)).FirstOrDefault();
+                  
                     if(atten!=null)
                     { 
                     if (gcType == 5)
